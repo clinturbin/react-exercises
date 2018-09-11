@@ -58,32 +58,32 @@ let posts = [
 let h = React.createElement;
 
 let PageHeader = (props) => 
-  h('h1', {className: 'big-header'}, ['React Blog']);
+  h('h1', {className: 'big-header'}, ['React Blog'])
 
 let BlogRow = (props) => 
   h('li', {}, [
     h('h2', {}, props.title),
     h('p', {}, props.body)
-  ]);
+  ])
 
 let BlogList = (props) => 
   h('ul', {}, 
     props.posts.map(post => 
       h(BlogRow, post))
-  );
+  )
 
 let PageFooter = (props) => 
   h('footer', {}, [
     h('p', {}, ['Copyright 2018']),
     h('a', {href: 'mypage.com'}, ['My Website'])
-  ]);
+  ])
 
 let BlogPage = (props) =>
   h('div', {}, [
     h(PageHeader),
     h(BlogList, { posts: props.posts }),
     h(PageFooter)
-  ]);
+  ])
 
 
 ReactDOM.render(h(BlogPage, { posts }), document.querySelector('.react-root'));
