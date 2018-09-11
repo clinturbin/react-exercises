@@ -78,10 +78,12 @@ let PageFooter = (props) =>
     h('a', {href: 'mypage.com'}, ['My Website'])
   ]);
 
-let vdom = h('div', {}, [
-  h(PageHeader),
-  h(BlogList, { posts }),
-  h(PageFooter)
-]);
+let BlogPage = (props) =>
+  h('div', {}, [
+    h(PageHeader),
+    h(BlogList, { posts: props.posts }),
+    h(PageFooter)
+  ]);
 
-ReactDOM.render(vdom, document.querySelector('.react-root'));
+
+ReactDOM.render(h(BlogPage, { posts }), document.querySelector('.react-root'));
