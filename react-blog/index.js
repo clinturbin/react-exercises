@@ -57,17 +57,23 @@ let posts = [
 
 let h = React.createElement;
 
-let createListItem = (post) =>  
-    h('li', {}, [
-        h('h2', {}, post['title']),
-        h('p', {}, post['body'])
-    ]);
+let BlogRow = (props) => 
+  h('li', {}, [
+    h('h2', {}, props.title),
+    h('p', {}, props.body)
+  ]);
+
+let BlogList = (props) => 
+  h('ul', {}, 
+    props.posts.map(post => 
+      h(BlogRow, post))
+  );
 
 let vdom = h('div', {}, [
-    h('h1', {className: 'big-header'}, ['React Blog']),
-    h('ul', {}, posts.map(post => createListItem(post))),
-    h('footer', {}, ['Copyright 2018']),
-    h('a', {href: 'mypage.com'}, ['My Website']),
+  h('h1', {className: 'big-header'}, ['React Blog']),
+  h(BlogList, { posts }),
+  h('footer', {}, ['Copyright 2018']),
+  h('a', {href: 'mypage.com'}, ['My Website']),
 ]);
 
 ReactDOM.render(vdom, document.querySelector('.react-root'));
