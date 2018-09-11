@@ -57,6 +57,9 @@ let posts = [
 
 let h = React.createElement;
 
+let PageHeader = (props) => 
+  h('h1', {className: 'big-header'}, ['React Blog']);
+
 let BlogRow = (props) => 
   h('li', {}, [
     h('h2', {}, props.title),
@@ -69,11 +72,16 @@ let BlogList = (props) =>
       h(BlogRow, post))
   );
 
+let PageFooter = (props) => 
+  h('footer', {}, [
+    h('p', {}, ['Copyright 2018']),
+    h('a', {href: 'mypage.com'}, ['My Website'])
+  ]);
+
 let vdom = h('div', {}, [
-  h('h1', {className: 'big-header'}, ['React Blog']),
+  h(PageHeader),
   h(BlogList, { posts }),
-  h('footer', {}, ['Copyright 2018']),
-  h('a', {href: 'mypage.com'}, ['My Website']),
+  h(PageFooter)
 ]);
 
 ReactDOM.render(vdom, document.querySelector('.react-root'));
