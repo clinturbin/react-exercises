@@ -56,42 +56,32 @@ const initialPosts = [
       }
 ];
 
-let snakeify = (blogPost) => {
-  posts = posts.map(post => 
-    post.id === blogPost.id ? 
-      Object.assign({}, post, {title: post.title + 's'})
-    :
-      post
-    )
-};
-
 let PageHeader = (props) => 
   h('h1', {className: 'big-header'}, ['React Blog'])
 
-let BlogRow = (props) =>  // {post: post, removePost: removePost}
+let BlogRow = (props) =>  
   h('li', {}, [
     h('h2', {}, props.post.title),
     h('button', {
       onClick: () => {
         props.removePost(props.post);
-        rerender();
       }
     }, 'Remove Post'),
     h('button', {
       onClick: () => {
-        snakeify(props);
-        rerender();
+        props.snakeify(props.post);
       } 
     }, 'Snakefiy'),
     h('p', {}, props.post.body)
   ])
 
-let BlogList = (props) => // {posts: posts, removePost: removePost}
+let BlogList = (props) => 
   h('ul', {}, 
     props.posts.map(post => 
       h(BlogRow, {
         post: post,
-        removePost: props.removePost
+        removePost: props.removePost,
+        snakeify: props.snakeify
       })
     )
   )
@@ -108,7 +98,7 @@ class BlogPage extends React.Component {
     this.state = {
         posts: initialPosts
     }
-  }
+  };
 
   render() {
     let removePost = (postToRemove) => {
@@ -117,22 +107,27 @@ class BlogPage extends React.Component {
       })
     };
 
+    let snakeify = (blogPost) => {
+      this.setState({
+        posts: this.state.posts.map(post => 
+          post.id === blogPost.id ? 
+            Object.assign({...post, title: post.title + 's'})
+          :
+            post
+        )
+      })
+    };
+
     return h('div', {}, [
       h(PageHeader),
       h(BlogList, {
         posts: this.state.posts,
-        removePost: removePost
+        removePost: removePost,
+        snakeify: snakeify
       }),
       h(PageFooter)
     ])
-  }
-}
-  
-
-
-let rerender = () => {
-  ReactDOM.render(h(BlogPage), document.querySelector('.react-root'));
+  };
 };
-
-rerender();
-
+  
+ReactDOM.render(h(BlogPage), document.querySelector('.react-root'));
