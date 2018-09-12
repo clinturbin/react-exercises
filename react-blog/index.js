@@ -1,4 +1,5 @@
-let posts = [
+const h = React.createElement;
+const initialPosts = [
     {
         "userId": 1,
         "id": 1,
@@ -55,12 +56,6 @@ let posts = [
       }
 ];
 
-let h = React.createElement;
-
-let removePost = (postToRemove) => {
-  posts = posts.filter(post => post.id !== postToRemove.id);
-};
-
 let snakeify = (blogPost) => {
   posts = posts.map(post => 
     post.id === blogPost.id ? 
@@ -73,12 +68,12 @@ let snakeify = (blogPost) => {
 let PageHeader = (props) => 
   h('h1', {className: 'big-header'}, ['React Blog'])
 
-let BlogRow = (props) => 
+let BlogRow = (props) =>  // {post: post, removePost: removePost}
   h('li', {}, [
-    h('h2', {}, props.title),
+    h('h2', {}, props.post.title),
     h('button', {
       onClick: () => {
-        removePost(props);
+        props.removePost(props.post);
         rerender();
       }
     }, 'Remove Post'),
@@ -88,13 +83,17 @@ let BlogRow = (props) =>
         rerender();
       } 
     }, 'Snakefiy'),
-    h('p', {}, props.body)
+    h('p', {}, props.post.body)
   ])
 
-let BlogList = (props) => 
+let BlogList = (props) => // {posts: posts, removePost: removePost}
   h('ul', {}, 
     props.posts.map(post => 
-      h(BlogRow, post))
+      h(BlogRow, {
+        post: post,
+        removePost: props.removePost
+      })
+    )
   )
 
 let PageFooter = (props) => 
@@ -103,16 +102,36 @@ let PageFooter = (props) =>
     h('a', {href: 'mypage.com'}, ['My Website'])
   ])
 
-let BlogPage = (props) =>
-  h('div', {}, [
-    h(PageHeader),
-    h(BlogList, { posts: props.posts }),
-    h(PageFooter)
-  ])
+class BlogPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        posts: initialPosts
+    }
+  }
+
+  render() {
+    let removePost = (postToRemove) => {
+      this.setState({
+        posts: this.state.posts.filter(post => post.id !== postToRemove.id)
+      })
+    };
+
+    return h('div', {}, [
+      h(PageHeader),
+      h(BlogList, {
+        posts: this.state.posts,
+        removePost: removePost
+      }),
+      h(PageFooter)
+    ])
+  }
+}
+  
 
 
 let rerender = () => {
-  ReactDOM.render(h(BlogPage, { posts }), document.querySelector('.react-root'));
+  ReactDOM.render(h(BlogPage), document.querySelector('.react-root'));
 };
 
 rerender();
