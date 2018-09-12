@@ -56,22 +56,30 @@ const initialPosts = [
       }
 ];
 
+let RemovePostButton = (props) => {
+  return h('button', {
+    onClick: () => {
+      props.removePost(props.post);
+    }
+  }, 'Remove Post')
+};
+
+let SnakeifyButton = (props) => {
+  return h('button', {
+    onClick: () => {
+      props.snakeify(props.post);
+    } 
+  }, 'Snakefiy')
+};
+
 let PageHeader = (props) => 
   h('h1', {className: 'big-header'}, ['React Blog'])
 
 let BlogRow = (props) =>  
   h('li', {}, [
     h('h2', {}, props.post.title),
-    h('button', {
-      onClick: () => {
-        props.removePost(props.post);
-      }
-    }, 'Remove Post'),
-    h('button', {
-      onClick: () => {
-        props.snakeify(props.post);
-      } 
-    }, 'Snakefiy'),
+    h(RemovePostButton, props),
+    h(SnakeifyButton, props),
     h('p', {}, props.post.body)
   ])
 
