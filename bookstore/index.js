@@ -8,39 +8,31 @@ const initialBooks = [
 ];
 const titles = ['Bookstore', 'Store2', 'Store3'];
 
-let removeBook = (bookToRemove) => {
-    books = books.filter(book => book !== bookToRemove);
-};
 
-let addToBookTitle = (bookToChange) => {
-    books = books.map(book => book === bookToChange ? book + 's' : book)
-};
-
-let BookRow = (props) => // props = {title: 'bookTitle', removeBook: removeBook}
+let BookRow = (props) =>
     h('li', {}, [
         h('h2', {}, props.title),
         h('button', {
             onClick: () => {
                 props.removeBook(props.title);
-                rerender();
             }
         }, 'Delete Me'),
         h('button', {
             onClick: () => {
-                addToBookTitle(props.title);
-                rerender();
+                props.snakeify(props.title);
             }
         }, 'Add S'),
         h('p', {}, 'Lorem Ipsum'),
     ]
 );
 
-let BookList = (props) => {    // props =  {books: [list of books], removeBook: removeBook}
+let BookList = (props) => {
     return h('ul', {}, 
         props.books.map(bookTitle => 
             h(BookRow, {
                 title: bookTitle,
-                removeBook: props.removeBook
+                removeBook: props.removeBook,
+                snakeify: props.snakeify
             })
         )
     );
@@ -54,13 +46,24 @@ class HomePage extends React.Component {
             books: initialBooks
         }
     }
+    
     render() {
         let removeBook = (bookToRemove) => {
             this.setState({
                 books: this.state.books.filter(book => 
                     book !== bookToRemove)
             })
-        }
+        };
+
+        let snakeify = (bookToStringify) => {
+            let newBooks = this.state.books.map(book => 
+                book === bookToStringify ? book + 's' : book
+            );
+            this.setState({
+                books: newBooks
+            })
+        };
+
         return h('div', {}, [
             h('h1', {className: 'big-header'}, titles[this.state.storeTitleIndex]),
             h('button', {
@@ -68,12 +71,12 @@ class HomePage extends React.Component {
                     this.setState ({
                         storeTitleIndex: (this.state.storeTitleIndex + 1) % titles.length
                     })
-                    rerender();
                 }
             }, 'Change Title'),
             h(BookList, { 
                 books: this.state.books,
-                removeBook: removeBook 
+                removeBook: removeBook,
+                snakeify: snakeify
             }),
             h('footer', {}, ['Copyright 2018']),
             h('a', {href: 'mypage.com'}, ['My Website'])
@@ -81,8 +84,4 @@ class HomePage extends React.Component {
     }
 }
 
-let rerender = () => {
-    ReactDOM.render(h(HomePage), document.querySelector('.react-root'));
-};
-
-rerender();
+ReactDOM.render(h(HomePage), document.querySelector('.react-root'));
