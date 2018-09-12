@@ -9,11 +9,9 @@ let books = [
     'Book4',
     'Book5'
 ];
-
-let storeTitleIndex = 0;
 //----------------------------------
 
-let titles = ['Bookstore', 'Store2', 'Store3'];
+const titles = ['Bookstore', 'Store2', 'Store3'];
 
 let removeBook = (bookToRemove) => {
     books = books.filter(book => book !== bookToRemove);
@@ -50,23 +48,34 @@ let BookList = (props) => {
     );
 };
 
-let HomePage = () => 
-    h('div', {}, [
-        h('h1', {className: 'big-header'}, titles[storeTitleIndex]),
-        h('button', {
-            onClick: () => {
-                storeTitleIndex = (storeTitleIndex + 1) % titles.length;  // this basically wraps around
-                rerender();
-            }
-        }, 'Change Title'),
-        h(BookList, { books }),
-        h('footer', {}, ['Copyright 2018']),
-        h('a', {href: 'mypage.com'}, ['My Website']),
-    ])
+class HomePage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            storeTitleIndex: 0
+        }
+    }
+    render() {
+        return h('div', {}, [
+            h('h1', {className: 'big-header'}, titles[this.state.storeTitleIndex]),
+            h('button', {
+                onClick: () => {
+                    this.setState ({
+                        storeTitleIndex: (this.state.storeTitleIndex + 1) % titles.length
+                    })
+                    console.log(this.state.storeTitleIndex);
+                    rerender();
+                }
+            }, 'Change Title'),
+            h(BookList, { books: books }),
+            h('footer', {}, ['Copyright 2018']),
+            h('a', {href: 'mypage.com'}, ['My Website'])
+        ])
+    }
+}
 
 let rerender = () => {
     ReactDOM.render(h(HomePage), document.querySelector('.react-root'));
 };
 
 rerender();
-
