@@ -1,16 +1,11 @@
 const h = React.createElement;
-
-// --------STATE----------------
-// The only things that will change
-let books = [
+const initialBooks = [
     'A Tale of Two Cities',
     'Book2',
     'Book3',
     'Book4',
     'Book5'
 ];
-//----------------------------------
-
 const titles = ['Bookstore', 'Store2', 'Store3'];
 
 let removeBook = (bookToRemove) => {
@@ -21,12 +16,12 @@ let addToBookTitle = (bookToChange) => {
     books = books.map(book => book === bookToChange ? book + 's' : book)
 };
 
-let BookRow = (props) => 
+let BookRow = (props) => // props = {title: 'bookTitle', removeBook: removeBook}
     h('li', {}, [
         h('h2', {}, props.title),
         h('button', {
             onClick: () => {
-                removeBook(props.title);
+                props.removeBook(props.title);
                 rerender();
             }
         }, 'Delete Me'),
@@ -40,10 +35,13 @@ let BookRow = (props) =>
     ]
 );
 
-let BookList = (props) => {
+let BookList = (props) => {    // props =  {books: [list of books], removeBook: removeBook}
     return h('ul', {}, 
         props.books.map(bookTitle => 
-            h(BookRow, {title: bookTitle})
+            h(BookRow, {
+                title: bookTitle,
+                removeBook: props.removeBook
+            })
         )
     );
 };
@@ -52,10 +50,17 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            storeTitleIndex: 0
+            storeTitleIndex: 0,
+            books: initialBooks
         }
     }
     render() {
+        let removeBook = (bookToRemove) => {
+            this.setState({
+                books: this.state.books.filter(book => 
+                    book !== bookToRemove)
+            })
+        }
         return h('div', {}, [
             h('h1', {className: 'big-header'}, titles[this.state.storeTitleIndex]),
             h('button', {
@@ -63,11 +68,13 @@ class HomePage extends React.Component {
                     this.setState ({
                         storeTitleIndex: (this.state.storeTitleIndex + 1) % titles.length
                     })
-                    console.log(this.state.storeTitleIndex);
                     rerender();
                 }
             }, 'Change Title'),
-            h(BookList, { books: books }),
+            h(BookList, { 
+                books: this.state.books,
+                removeBook: removeBook 
+            }),
             h('footer', {}, ['Copyright 2018']),
             h('a', {href: 'mypage.com'}, ['My Website'])
         ])
