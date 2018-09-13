@@ -18,6 +18,10 @@ const initialWassupPosts = [
     },
 ];
 
+let generateId = () => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString();
+
+
+// props =  {addWassup: addWassup}
 class WassupInputForm extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +35,7 @@ class WassupInputForm extends React.Component {
         return h('form', {
             onSubmit: (event) => {
                 event.preventDefault();
+                this.props.addWassup(this.state.newWassup); //?????
             }
         },
             h('input', {
@@ -46,12 +51,9 @@ class WassupInputForm extends React.Component {
     }
 };
 
-
-// props ={key: 1, post: {id: 1, post: 'This is post 1}} 
 let WassupRow = (props) => 
-    h('li', {}, props.post.post)
+    h('li', {}, props.post.content)
 
-// props = {posts: [{id: 1, 'This is Post 1'}, {id: 2, post: 'This is Post2}]}
 let WassupList = (props) => 
     h('ul', {}, 
         props.posts.map(post => 
@@ -67,6 +69,16 @@ class HomePage extends React.Component {
         }
     };
     render() {
+        let addWassup = (newWassup) => {
+            this.setState( {
+                wassups: this.state.wassups.concat([
+                    {
+                        id: generateId(),
+                        content: newWassup
+                    }
+                ])
+            })
+        };
 
         return h('div', {}, 
             h('h1', {}, 'Wassup!!!!'),
