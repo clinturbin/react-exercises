@@ -56,21 +56,20 @@ const initialPosts = [
       }
 ];
 
-let RemovePostButton = (props) => {
-  return h('button', {
+let RemovePostButton = (props) => 
+  h('button', {
     onClick: () => {
       props.removePost(props.post);
     }
   }, 'Remove Post')
-};
 
-let SnakeifyButton = (props) => {
-  return h('button', {
+let SnakeifyButton = (props) => 
+  h('button', {
     onClick: () => {
       props.snakeify(props.post);
     } 
   }, 'Snakefiy')
-};
+
 
 let PageHeader = (props) => 
   h('h1', {className: 'big-header'}, ['React Blog'])
@@ -119,6 +118,7 @@ class BlogPage extends React.Component {
       this.setState({
         posts: this.state.posts.map(post => 
           post.id === blogPost.id ? 
+          // Object.assign({}, post, {title: post.title + 's'})
             Object.assign({...post, title: post.title + 's'})
           :
             post
