@@ -5,15 +5,15 @@ const initialWassupPosts = [
         post: 'This is post 1'
     },
     {
-        id: 1,
+        id: 2,
         post: 'This is post 2'
     },
     {
-        id: 1,
+        id: 3,
         post: 'This is post 3'
     },
     {
-        id: 1,
+        id: 4,
         post: 'This is post 4'
     },
 ];
@@ -25,21 +25,20 @@ let WassupInputSubmitButton = (props) =>
     h('button', {}, 'Wassup')
 
 let WassupInputForm = (props) => 
-    h('div', {}, [
+    h('form', {}, 
         h(WassupTextInputBox),
-        h('br', {}),
         h(WassupInputSubmitButton)
-    ])
+    )
 
-// props = {id: 1, post: 'This is post 1}
-let WassupPostDisplay = (props) => 
-    h('li', {}, props.post)
+// props ={key: 1, post: {id: 1, post: 'This is post 1}} 
+let WassupRow = (props) => 
+    h('li', {}, props.post.post)
 
 // props = {posts: [{id: 1, 'This is Post 1'}, {id: 2, post: 'This is Post2}]}
-let WassupPostsDisplay = (props) => 
+let WassupList = (props) => 
     h('ul', {}, 
         props.posts.map(post => 
-            h(WassupPostDisplay, post)
+            h(WassupRow, {post: post, key: post.id})
         )
     )
 
@@ -52,13 +51,13 @@ class HomePage extends React.Component {
     };
     render() {
 
-        return h('div', {}, [
+        return h('div', {}, 
             h('h1', {}, 'Wassup!!!!'),
             h(WassupInputForm),
-            h(WassupPostsDisplay, {
+            h(WassupList, {
                 posts: this.state.posts
             })
-        ]);
+        );
     };
 };
 
