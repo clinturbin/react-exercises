@@ -18,17 +18,34 @@ const initialWassupPosts = [
     },
 ];
 
-let WassupTextInputBox = (props) => 
-    h('input', {type: 'text'})
+class WassupInputForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newWassup: ''
+        }
+    }
 
-let WassupInputSubmitButton = (props) => 
-    h('button', {}, 'Wassup')
+    render() {
 
-let WassupInputForm = (props) => 
-    h('form', {}, 
-        h(WassupTextInputBox),
-        h(WassupInputSubmitButton)
-    )
+        return h('form', {
+            onSubmit: (event) => {
+                event.preventDefault();
+            }
+        },
+            h('input', {
+                type: 'text',
+                value: this.state.newWassup,
+                onChange: (event) => {
+                    let value = event.target.value;
+                    this.setState( { newWassup: value })
+                }
+            }),
+            h('input', { type: 'submit', value: 'Post'})
+        )
+    }
+};
+
 
 // props ={key: 1, post: {id: 1, post: 'This is post 1}} 
 let WassupRow = (props) => 
@@ -46,16 +63,16 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: initialWassupPosts
+            wassups: []
         }
     };
     render() {
 
         return h('div', {}, 
             h('h1', {}, 'Wassup!!!!'),
-            h(WassupInputForm),
+            h(WassupInputForm, {addWassup: addWassup}),
             h(WassupList, {
-                posts: this.state.posts
+                posts: this.state.wassups
             })
         );
     };
