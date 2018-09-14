@@ -1,3 +1,12 @@
+// fetch('http://0.tcp.ngrok.io:18229/wassups.json')
+// .then(res => res.json())
+// .then(wassups => {
+//     this.setState({
+//         wassups: wassups
+//     });
+// });
+
+
 let generateId = () => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString();
 
 class WassupInputForm extends React.Component {
@@ -48,12 +57,31 @@ let WassupList = (props) =>
 
 class HomePage extends React.Component {
     constructor(props) {
+        console.log('Contsructor');
         super(props);
         this.state = {
             wassups: []
-        }
+        };
+        // this.getWassups(); => This goes in componentDidMount
+        // Not allowed to call setState in constructor
+        // you never call anything that could possibly cal setState in the constructor
+        
     };
+
+    getWassups() {
+        console.log('Fetch');
+        fetch('http://0.tcp.ngrok.io:18229/wassups.json')
+            .then(res => res.json())
+            .then(wassups => {
+                this.setState({
+                    wassups: wassups
+                });
+            });
+    };
+
+
     render() {
+        console.log('Im rendering');
         let addWassup = (newWassup) => {
             this.setState( {
                 wassups: this.state.wassups.concat([
@@ -64,15 +92,25 @@ class HomePage extends React.Component {
                 ])
             })
         };
-
         return (
             <div>
                 <h1>Wassup!!!</h1>
+                {/* <button onClick={() => this.getWassups()}>Refresh</button> */}
+                <button onClick={this.getWassups.bind(this)}>Refresh</button>
                 <WassupInputForm addWassup={addWassup} />
                 <WassupList wassups={this.state.wassups} />
             </div>
         );
     };
+
+    componentDidMount() {
+        console.log('Page has been loaded');
+        this.getWassups();
+    };
+
+    componentDidUpdate() {
+        console.log('Update');
+    }
 };
 
 ReactDOM.render(<HomePage/>, document.querySelector('.react-root'));
