@@ -1,46 +1,40 @@
-// fetch('http://0.tcp.ngrok.io:18229/wassups.json')
-// .then(res => res.json())
-// .then(wassups => {
-//     this.setState({
-//         wassups: wassups
-//     });
-// });
-
-
 let generateId = () => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString();
 
-class WassupInputForm extends React.Component {
+let WassupInputForm = (props) => 
+    <form onSubmit={ (event) => {
+        event.preventDefault();
+        props.addWassup(props.newWassup);
+    }}>
+        <input 
+            type='text'
+            value={props.newWassup}
+            onChange={  (event) => {
+                let value = event.target.value;
+                props.updateWassup(value);
+            }}
+        />
+        <input type='submit' value='Post'/>
+    </form>
+
+class WassupInputFormContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             newWassup: ''
         }
     }
-
     render() {
-        return (
-            <form
-                onSubmit={
-                    (event) => {
-                        event.preventDefault();
-                        this.props.addWassup(this.state.newWassup);
-                    }
-                }
-            >
-                <input 
-                    type='text'
-                    value={this.state.newWassup}
-                    onChange={
-                        (event) => {
-                            let value = event.target.value;
-                            this.setState( {newWassup: value })
-                        }
-                    }
+        let updateWassup = (value) => {
+            this.setState({
+                newWassup: value
+            });
+        };
+        return <WassupInputForm 
+                    {...this.props}
+                    newWassup={this.state.newWassup}
+                    updateWassup={updateWassup} 
                 />
-                <input type='submit' value='Post'/>
-            </form>
-        );
-    }
+    };
 };
 
 let WassupRow = (props) => 
@@ -62,15 +56,11 @@ class HomePage extends React.Component {
         this.state = {
             wassups: []
         };
-        // this.getWassups(); => This goes in componentDidMount
-        // Not allowed to call setState in constructor
-        // you never call anything that could possibly cal setState in the constructor
-        
     };
 
     getWassups() {
         console.log('Fetch');
-        fetch('http://0.tcp.ngrok.io:18229/wassups.json')
+        fetch('http://0.tcp.ngrok.io:11971/wassups.json')
             .then(res => res.json())
             .then(wassups => {
                 this.setState({
@@ -78,7 +68,6 @@ class HomePage extends React.Component {
                 });
             });
     };
-
 
     render() {
         console.log('Im rendering');
@@ -95,9 +84,10 @@ class HomePage extends React.Component {
         return (
             <div>
                 <h1>Wassup!!!</h1>
-                {/* <button onClick={() => this.getWassups()}>Refresh</button> */}
                 <button onClick={this.getWassups.bind(this)}>Refresh</button>
-                <WassupInputForm addWassup={addWassup} />
+                <WassupInputFormContainer 
+                    {...this.props}
+                    addWassup={addWassup} />
                 <WassupList wassups={this.state.wassups} />
             </div>
         );
