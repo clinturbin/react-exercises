@@ -1,7 +1,8 @@
 let generateId = () => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString();
 
-let WassupInputForm = (props) => 
-    <form onSubmit={ (event) => {
+let WassupInputForm = (props) => {
+    console.log(props);
+    return <form onSubmit={ (event) => {
         event.preventDefault();
         props.addWassup(props.newWassup);
     }}>
@@ -15,6 +16,7 @@ let WassupInputForm = (props) =>
         />
         <input type='submit' value='Post'/>
     </form>
+}
 
 class WassupInputFormContainer extends React.Component {
     constructor(props) {
@@ -49,7 +51,14 @@ let WassupList = (props) =>
         ).reverse() }
     </ul>
 
-class HomePage extends React.Component {
+let HomePage = (props) => 
+    <div>
+        <h1>Wassup!!!</h1>
+        <WassupInputFormContainer addWassup={props.addWassup}/>
+        <WassupList wassups={props.wassups}/>
+    </div>
+
+class HomePageContainer extends React.Component {
     constructor(props) {
         console.log('Contsructor');
         super(props);
@@ -81,16 +90,10 @@ class HomePage extends React.Component {
                 ])
             })
         };
-        return (
-            <div>
-                <h1>Wassup!!!</h1>
-                <button onClick={this.getWassups.bind(this)}>Refresh</button>
-                <WassupInputFormContainer 
-                    {...this.props}
-                    addWassup={addWassup} />
-                <WassupList wassups={this.state.wassups} />
-            </div>
-        );
+        return <HomePage 
+                    {...this.props} 
+                    addWassup={addWassup} 
+                    wassups={this.state.wassups} />
     };
 
     componentDidMount() {
@@ -103,4 +106,4 @@ class HomePage extends React.Component {
     }
 };
 
-ReactDOM.render(<HomePage/>, document.querySelector('.react-root'));
+ReactDOM.render(<HomePageContainer/>, document.querySelector('.react-root'));
