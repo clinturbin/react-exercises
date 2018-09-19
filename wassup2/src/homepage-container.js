@@ -1,20 +1,31 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 import HomePage from './homepage';
-import generateId from './generate-id';
+// import generateId from './generate-id';
 
 import { connect } from 'react-redux';
 
-let mapStateToProps = state => {
-    return {wassups: state.wassups};
-};
+// class HomePageWithLoading ...
+//       render() {
+    //        <HomePage/>
+//        }
 
-let HomePageSmart = connect(mapStateToProps)(HomePage);
 
-// let HomePageSmart = connect(state => {
-//     return {wassups: state.wassups}
-// })(HomePage);
+// let mapStateToProps = state => {
+//     return {wassups: state.wassups};
+// };
+// Extreact props from state or Pick Props From State
+let mapStateToProps = state => ({wassups: state.wassups})
 
-export default HomePageSmart;
+let ConnectedHomepage = connect(mapStateToProps)(HomePage);
+
+//connect(mapStateToProps, mapDispatchToProps)
+//let mapStateToProps = state => {
+    // return {wassups: state.wassups};
+// }; 
+// Anything we return in here will be props to homepage
+// connect gives you something back
+
+export default ConnectedHomepage;
 
 // this.state.counter => this.props.ctr (ctr = wassups)
 

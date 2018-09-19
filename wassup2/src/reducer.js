@@ -1,22 +1,18 @@
-let reducers = {
-    'ADD_NEW_WASSUP': addNewWassup,
-    'REMOVE_WASSUP': removeWassup
-};
-
 let addNewWassup = (oldState, action) => {
-    if (action.type === "ADD_NEW_WASSUP") {
-        let newWassups = [...oldState.wassups, action.data ]
-        return {...oldState, wassups: newWassups, newWassup: ''}; // New State
-    }
+    let newWassups = [...oldState.wassups, action.id];
+    return {...oldState, wassups: newWassups, newWassup: ''};
 };
 
 let removeWassup = (oldState, action) => {
-    if (action.type === 'REMOVE_WASSUP') {
-        oldState.wassups.filter(wassup => wassup === action.data); // new list of wassups
+        let filteredWassups = oldState.wassups.filter(wassup => wassup.id !== action.id);
         return {...oldState,
-            wassups: oldState.newWassups,
-        };
-    }
+            wassups: filteredWassups,
+        }
+};
+
+let reducers = {
+    'ADD_NEW_WASSUP': addNewWassup,
+    'REMOVE_WASSUP': removeWassup
 };
 
 let reducer = (oldState, action) => {
