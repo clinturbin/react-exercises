@@ -1,5 +1,6 @@
 import React from 'react';
 import WassupInputFormContainer from './wassup-form-container';
+// import WassupForm from './wassup-form';
 import WassupList from './wassup-list';
 
 let HomePage = (props) => 

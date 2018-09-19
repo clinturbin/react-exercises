@@ -12,9 +12,7 @@ let WassupRow = (props) =>
             }}
         >Delete</button>
     </li>
-   
-   
-// let ConnectedWassupRow = connect(state => ({}))(WassupRow);
+
 let ConnectedWassupRow = connect()(WassupRow);
 
 export default ConnectedWassupRow;
