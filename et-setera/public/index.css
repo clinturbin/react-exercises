@@ -15,3 +15,26 @@
     display: inline-block;
     width: 50%;
 }
+
+.header-container {
+    background-color: aqua;
+    display: flex;
+}
+
+.header-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    justify-content: center;
+}
+
+.main-body {
+    display: flex;
+}
+
+.nav-background {
+    background-color: beige;
+}

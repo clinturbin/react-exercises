@@ -11,19 +11,25 @@ let Router = () =>
     <HashRouter>
         <div>
             <HeaderContainer />
-            <SideNavigation />
-            <Switch>
-                <Route exact path='/' component={AllProductsPage} />
-                <Route 
-                    exact path='/categories/:id'
-                    render={(props) => <CategoryPage {...props} />}    
-                />
-                <Route 
-                    exact path="/products/:id" 
-                    render={(props) => <ProductPage {...props}/> }
-                />
-                <Route path="*" component={NotFound} />
-            </Switch>
+            <div className='main-body'>
+                <SideNavigation />
+                <Switch>
+                    <Route exact path='/' component={AllProductsPage} />
+                    <Route 
+                        exact path='/categories/:id'
+                        render={(props) => <CategoryPage {...props} />}    
+                    />
+                    <Route 
+                        exact path="/products/:id" 
+                        render={(props) => <ProductPage {...props}/> }
+                    />
+                    <Route
+                        exact path="/cart"
+                            
+                    />
+                    <Route path="*" component={NotFound} />
+                </Switch>
+            </div>
         </div>
     </HashRouter>
 
