@@ -1,12 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import CategoryLinks from './category-links';
+import { connect } from 'react-redux';
 
-let SideNavigation = () => 
+let mapStateToProps = state => ({categories: state.categories})
+
+let SideNavigation = (props) => console.log(props.categories) ||
     <div>
-        <div><NavLink to="/">All</NavLink></div>
-        <div><NavLink to="/categories/1">Hats</NavLink></div>
-        <div><NavLink to="/categories/2">Tops</NavLink></div>
-        <div><NavLink to="/categories/3">Pants</NavLink></div>
+        <CategoryLinks categories={props.categories} />
     </div>
 
-export default SideNavigation;
+let ConnectedSideNavigation = connect(mapStateToProps)(SideNavigation);
+
+export default ConnectedSideNavigation;

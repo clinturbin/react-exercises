@@ -2,3 +2,11 @@
     width: 200px;
     height: 200px;
 }
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.product-listing {
+    width: 50%;
+}

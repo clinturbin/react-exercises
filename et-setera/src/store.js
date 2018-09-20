@@ -5,9 +5,9 @@ import products from './products';
 let initialState = {
     products: products,
     categories: [
-        {categoryId: '1', categoryName: 'Cat1'},
-        {categoryId: '2', categoryName: 'Cat2'},
-        {categoryId: '3', categoryName: 'Cat3'}
+        {categoryId: '1', categoryName: 'Hats'},
+        {categoryId: '2', categoryName: 'Pants'},
+        {categoryId: '3', categoryName: 'Store'}
     ],
     cartItems: []
 };
