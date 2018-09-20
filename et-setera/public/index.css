@@ -10,3 +10,8 @@
 .product-listing {
     width: 50%;
 }
+
+.product-page-section {
+    display: inline-block;
+    width: 50%;
+}

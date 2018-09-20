@@ -1,16 +1,25 @@
 import React from 'react';
-import HeaderContainer from './header-container';
-import SideNavigation from './side-navigation';
 import { connect } from 'react-redux';
 
 let mapStateToProps = state => ({products: state.products})
 
-let ProductPage = (props) => console.log(props) ||
-    <div>
-        <HeaderContainer />
-        <SideNavigation />
-        <h1>Hi {props.products[props.match.params.id-1]['title']}</h1>
-    </div>
+let ProductPage = (props) => {
+    let urlId = props.match.params.id;
+    let product = props.products.filter(product => product.id === urlId);
+    return (
+        <div>
+            <div className='product-page-section'>
+                <img src={product[0].imageURL} alt='' width='300' height='300'></img>
+            </div>
+            <div className='product-page-section'>
+                <h1>{product[0].title}</h1>
+                <p>{product[0].description}</p>
+                <p>{`Price: $${product[0].price}`}</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    )
+};
 
 let ConnectedProductPage = connect(mapStateToProps)(ProductPage);
 

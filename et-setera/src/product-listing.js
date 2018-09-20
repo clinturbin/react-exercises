@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 let ProductListing = (props) => console.log(props) ||
     <Link to={`/products/${props.product['id']}`} id={props.product['id']} >
@@ -12,7 +11,5 @@ let ProductListing = (props) => console.log(props) ||
             <p>{props.product['description']}</p>
         </li>
     </Link>
-    
-let ConnectedProductListing = connect()(ProductListing);
 
-export default ConnectedProductListing;
+export default ProductListing;

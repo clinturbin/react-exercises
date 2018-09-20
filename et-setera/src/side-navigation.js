@@ -1,5 +1,4 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 import CategoryLinks from './category-links';
 import { connect } from 'react-redux';
 
