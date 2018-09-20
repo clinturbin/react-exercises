@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import CartButton from './cart-button';
 
 let mapStateToProps = state => ({products: state.products})
 
@@ -15,11 +16,7 @@ let ProductPage = (props) => {
                 <h1>{product.title}</h1>
                 <p>{product.description}</p>
                 <p>{`Price: $${product.price}`}</p>
-                <button 
-                    onClick={()=> {
-                        props.dispatch({type: 'ADD_TO_CART', product: product})
-                    }}
-                >Add to Cart</button>
+                <CartButton product={product}/>
             </div>
         </div>
     )
