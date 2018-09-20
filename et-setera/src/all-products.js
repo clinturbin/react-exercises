@@ -1,18 +1,21 @@
 import React from 'react';
 import HeaderContainer from './header-container';
 import SideNavigation from './side-navigation';
+import ProductList from './product-list';
+import { connect } from 'react-redux';
 
-let AllProductsPage = () => 
+let mapStateToProps = state => ({products: state.products})
+
+
+let AllProductsPage = (props) =>
     <div>
         <HeaderContainer />
         <SideNavigation />
         <h1>All Products</h1>
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-        </ul>
+        <ProductList products={props.products} />
     </div>
 
-export default AllProductsPage;
+
+let ConnectedAllProductsPage = connect(mapStateToProps)(AllProductsPage);
+
+export default ConnectedAllProductsPage;

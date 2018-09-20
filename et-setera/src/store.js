@@ -3,11 +3,11 @@ import reducer from './reducer';
 import products from './products';
 
 let initialState = {
-    products: products.productList,
+    products: products,
     categories: [
-        {categoryId: '1'},
-        {categoryId: '2'},
-        {categoryId: '3'},
+        {categoryId: '1', categoryName: 'Cat1'},
+        {categoryId: '2', categoryName: 'Cat2'},
+        {categoryId: '3', categoryName: 'Cat3'}
     ],
     cartItems: []
 };

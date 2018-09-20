@@ -1,4 +1,4 @@
-let productList = [
+let products = [
     {
         "id":"1",
         "title":"Kitten Cap",
@@ -33,4 +33,4 @@ let productList = [
     }
 ];
 
-export default productList;
+export default products;
