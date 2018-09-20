@@ -7,7 +7,8 @@ let initialState = {
     categories: [
         {categoryId: '1', categoryName: 'Hats'},
         {categoryId: '2', categoryName: 'Pants'},
-        {categoryId: '3', categoryName: 'Store'}
+        {categoryId: '3', categoryName: 'Tops'},
+        {categoryId: '4', categoryName: 'Shoes'},
     ],
     cartItems: []
 };

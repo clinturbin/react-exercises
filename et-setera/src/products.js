@@ -13,7 +13,7 @@ let products = [
         "description":"Even Sherlock Holmes needed a purr or two.",
         "price":50,
         "imageURL":"https://images.unsplash.com/photo-1467839024528-ac3042ac0ae7",
-        "categoryId":"1"
+        "categoryId":"4"
     },
     {
         "id":"3",
