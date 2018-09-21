@@ -19,10 +19,3 @@ let reducer = (oldState, action) => {
 };
 
 export default reducer;
-
-// let removeFromCart = (oldState, action) => {
-//         let filteredWassups = oldState.wassups.filter(wassup => wassup.id !== action.id);
-//         return {...oldState,
-//             wassups: filteredWassups,
-//         }
-// };

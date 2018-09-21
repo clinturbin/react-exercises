@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CartButton from './cart-button';
+import HeaderContainer from './header-container';
+import SideNavigation from './side-navigation';
 
 let mapStateToProps = state => ({products: state.products})
 
@@ -9,6 +11,8 @@ let ProductPage = (props) => {
     let product = props.products.filter(product => product.id === urlId)[0];
     return (
         <div>
+            <HeaderContainer />
+            <SideNavigation />
             <div className='product-page-section'>
                 <img src={product.imageURL} alt='' width='300' height='300'></img>
             </div>

@@ -1,20 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-let mapStateToProps = state => ({cartItems: state.cartItems})
 
 let CartButton = (props) => {
-    let button = {type: 'ADD_TO_CART', text: 'Add To Cart'};
-    if (props.cartItems.includes(props.product)) {
-        button = {type: 'REMOVE_FROM_CART', text: 'Delete From Cart'};
-    };
-    return <button
-        onClick={ () => {
-            props.dispatch({type: button.type, product: props.product})
-        }}
-    >{button.text}</button>
+    let button = props.inCart 
+        ? {type: 'REMOVE_FROM_CART', text: 'Delete From Cart'}
+        : {type: 'ADD_TO_CART', text: 'Add To Cart'};
+    return (
+        <button
+            onClick={ () => {
+                props.dispatch({type: button.type, product: props.product})
+            }}
+        >{button.text}</button>
+    )
 };
 
-let ConnectedCartButton = connect(mapStateToProps)(CartButton);
+let ConnectedCartButton = connect((state, props) => ({
+        inCart: state.cartItems.includes(props.product)
+    })
+)(CartButton);
 
 export default ConnectedCartButton;
+
+
+
+// export default connect(
+//     (state, props) => ({
+//         inCart: state.cartItems.includes(props.product)
+//     })
+// )(ProductDetail);
+
+// REDUCER
+// let reducer = (state, action) => {
+    // if (action.type === 'ADD_TO_CART') {}
+// }

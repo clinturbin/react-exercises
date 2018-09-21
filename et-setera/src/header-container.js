@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-let mapStateToProps = state => ({cartItems: state.cartItems})
+let mapStateToProps = state => ({cartCount: state.cartItems.length})
 
 let HeaderNavigation = (props) => 
     <div className='header-container'>
@@ -11,7 +11,7 @@ let HeaderNavigation = (props) =>
         <Link to='/'><h1>Et Setera</h1></Link>
         </div>
         <div className='header-section header-right'>
-            <p>Cart {props.cartItems.length}</p>
+            <p>Cart {props.cartCount}</p>
         </div>
         
     </div>

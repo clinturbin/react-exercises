@@ -1,6 +1,8 @@
 import React from 'react';
 import ProductList from './product-list';
 import { connect } from 'react-redux';
+import HeaderContainer from './header-container';
+import SideNavigation from './side-navigation';
 
 let mapStateToProps = state => ({categories: state.categories, products: state.products})
 
@@ -10,6 +12,8 @@ let CategoryPage = (props) => {
     let products = props.products.filter(product => product.categoryId === category[0].categoryId);
     return (
         <div>
+            <HeaderContainer />
+            <SideNavigation />
             <h1>{category[0].categoryName}</h1>
             <ProductList products={products}/>
         </div>
