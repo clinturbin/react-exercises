@@ -8,7 +8,7 @@ let mapStateToProps = state => ({products: state.products})
 
 let ProductPage = (props) => {
     let urlId = props.match.params.id;
-    let product = props.products.filter(product => product.id === urlId)[0];
+    let product = props.products.find(product => product.id === urlId);
     return (
         <div>
             <HeaderContainer />

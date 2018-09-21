@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-
 let CartButton = (props) => {
     let button = props.inCart 
         ? {type: 'REMOVE_FROM_CART', text: 'Delete From Cart'}
@@ -21,16 +20,3 @@ let ConnectedCartButton = connect((state, props) => ({
 )(CartButton);
 
 export default ConnectedCartButton;
-
-
-
-// export default connect(
-//     (state, props) => ({
-//         inCart: state.cartItems.includes(props.product)
-//     })
-// )(ProductDetail);
-
-// REDUCER
-// let reducer = (state, action) => {
-    // if (action.type === 'ADD_TO_CART') {}
-// }

@@ -8,13 +8,13 @@ let mapStateToProps = state => ({categories: state.categories, products: state.p
 
 let CategoryPage = (props) => {
     let urlId = props.match.params.id;
-    let category = props.categories.filter(category => category.categoryId === urlId );
-    let products = props.products.filter(product => product.categoryId === category[0].categoryId);
+    let category = props.categories.find(category => category.categoryId === urlId );
+    let products = props.products.filter(product => product.categoryId === category.categoryId);
     return (
         <div>
             <HeaderContainer />
             <SideNavigation />
-            <h1>{category[0].categoryName}</h1>
+            <h1>{category.categoryName}</h1>
             <ProductList products={products}/>
         </div>
     )
