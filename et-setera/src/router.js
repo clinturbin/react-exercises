@@ -10,11 +10,11 @@ let Router = () =>
         <Switch>
             <Route exact path='/' component={AllProductsPage} />
             <Route 
-                exact path='/categories/:id'
+                exact path='/category/:id'
                 render={(props) => <CategoryPage {...props} />}    
             />
             <Route 
-                exact path="/products/:id" 
+                exact path="/product/:id" 
                 render={(props) => <ProductPage {...props}/> }
             />
             <Route path="*" component={NotFound} />

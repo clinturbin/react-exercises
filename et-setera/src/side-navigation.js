@@ -1,14 +1,14 @@
 import React from 'react';
 import CategoryLinks from './category-links';
 import { connect } from 'react-redux';
+import fetchCategories from './fetch-categories';
 
-let mapStateToProps = state => ({categories: state.categories})
-
-let SideNavigation = (props) => console.log(props.categories) ||
+let SideNavigation = (props) =>
     <div>
         <CategoryLinks categories={props.categories} />
     </div>
 
-let ConnectedSideNavigation = connect(mapStateToProps)(SideNavigation);
 
-export default ConnectedSideNavigation;
+export default connect(state => ({
+    categories: state.categories
+}))(fetchCategories(SideNavigation, '/category'));
